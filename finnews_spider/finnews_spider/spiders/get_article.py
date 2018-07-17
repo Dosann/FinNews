@@ -17,7 +17,7 @@ class MySpider(scrapy.Spider):
 
     def GetConnection():
         conn = pymysql.connect(host = 'localhost',
-                       db = 'FinNews',
+                       db = 'finnews',
                        port = 3306,
                        user = 'root',
                        password = '123456',
