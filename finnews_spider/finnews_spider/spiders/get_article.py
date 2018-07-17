@@ -9,7 +9,7 @@ import scrapy
 from scrapy import log
 from finnews_spider.items import ArticleItem
 import pymysql
-import queue
+#import queue
 import time
 
 class MySpider(scrapy.Spider):
@@ -48,13 +48,13 @@ class MySpider(scrapy.Spider):
         # your code here'''
 
     
-
+"""
     def ConstructQueue(self, data):
         que = queue.Queue()
         for task in data:
             que.put(task)
         return que
-
+"""
     def parse(self, response):
         spliter = '?duxin_task_id='
         url = response.url
