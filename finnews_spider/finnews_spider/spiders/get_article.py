@@ -15,13 +15,6 @@ import time
 class MySpider(scrapy.Spider):
     name='get_articles'
 
-    def InitializeLogger():
-        logger = logging.getLogger('main_logger')
-        logger.setLevel(logging.INFO)
-        logger.addHandler(logging.FileHandler(filename = 'getarticles.log', mode = 'a'))
-        logger.addHandler(logging.StreamHandler())
-        return logger
-
     def GetConnection():
         conn = pymysql.connect(host = 'localhost',
                        db = 'FinNews',
@@ -45,16 +38,7 @@ class MySpider(scrapy.Spider):
     def __init__(self, *a, **kw):
         super(MySpider, self).__init__(*a, **kw)
  
-        # your code here'''
 
-    
-"""
-    def ConstructQueue(self, data):
-        que = queue.Queue()
-        for task in data:
-            que.put(task)
-        return que
-"""
     def parse(self, response):
         spliter = '?duxin_task_id='
         url = response.url
