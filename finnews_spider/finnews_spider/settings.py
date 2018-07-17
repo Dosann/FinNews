@@ -116,4 +116,4 @@ def IPPOOL_generate():
     return proxies
 
 DOWNLOAD_TIMEOUT = 60
-LOG_LEVEL = 'CRITICAL'
+#LOG_LEVEL = 'CRITICAL'
