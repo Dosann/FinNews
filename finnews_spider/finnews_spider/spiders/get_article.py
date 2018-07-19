@@ -5,6 +5,8 @@ email     : duxn_be@outlook.com
 2018 All rights reserved.
 """
 
+# -*- coding:utf-8 -*-
+
 import scrapy
 from scrapy import log
 from finnews_spider.items import ArticleItem
