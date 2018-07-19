@@ -40,4 +40,4 @@ def get_recent_hotwords():
     return json.dumps(hotwords)
 
 if __name__ == "__main__":
-    app.run(port = 80)
+    app.run(port = 5000)
