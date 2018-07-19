@@ -77,15 +77,24 @@ class service():
         top_pairs = rank[:num_keywords]
         #print(top_rank)
         top_words  = list(map(lambda x:self.dct[x[0]], top_pairs))
-        top_scores = list(map(lambda x:ceil(x[1] * 100), top_pairs))
+        top_scores = list(map(lambda x:ceil(x[1] * 300), top_pairs))
         return list(zip(top_words, top_scores))
     
-    def get_recent_articles(self, time_period = 300, num_limit = 10):
-        #sql = """set @dt = (select date_add(now(), interval -%d day)); select a.ID, a.published_at, b.article from articles b left join headers a on a.ID = b.ID where (a.published_at > @dt) order by a.published_at desc limit %d"""%(time_period, num_limit)
-        self.conn.Update("set @dt = (select date_add(now(), interval -300 day))")
-        articles = self.conn.Query(" select tbla.ID, tbla.published_at, tblb.article from articles tblb left join headers tbla" + \
-        " on (tbla.ID = tblb.ID) where (tbla.published_at > @dt) order by tbla.published_at desc limit 10;")
+    def get_recent_articles(self, time_period = 30, num_limit = 100):
+        self.conn.Update("set @dt = (select date_add(now(), interval -%d day))"%time_period)
+        num_articles = self.conn.Query("select count(*) from headers where published_at > @dt")[0][0]
+        num_articles_select = min(num_articles, num_limit)
+        articles = self.conn.Query("select tbla.ID, tbla.published_at, tblb.article from articles tblb left join headers tbla " + \
+        "on (tbla.ID = tblb.ID) where tbla.ID in " + \
+        "(select * from (select ID from headers where published_at > @dt order by rand() limit 100) as tbl02);")
+        num_articles_selected = len(articles)
+        print("Loaded %d articles from db."%num_articles_selected)
+        # for article in articles:
+        #     print(article[0], article[1])
         #print(sql)
-        articles = list(map(lambda x:list(x[:2])+[service.handleArticleBloomberg(x[2])], articles))
+        if num_articles_selected == 0:
+            articles = [["NO RECENT NEWS!", 50]]
+        else:
+            articles = list(map(lambda x:list(x[:2])+[service.handleArticleBloomberg(x[2])], articles))
         return articles
         
