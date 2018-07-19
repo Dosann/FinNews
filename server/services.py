@@ -4,6 +4,7 @@ import os
 import json
 import pymysql
 import gensim
+from math import ceil
 from mysqlconnection import MysqlConnection
 
 class service():
@@ -76,7 +77,7 @@ class service():
         top_pairs = rank[:num_keywords]
         #print(top_rank)
         top_words  = list(map(lambda x:self.dct[x[0]], top_pairs))
-        top_scores = list(map(lambda x:x[1], top_pairs))
+        top_scores = list(map(lambda x:ceil(x[1] * 100), top_pairs))
         return list(zip(top_words, top_scores))
     
     def get_recent_articles(self, time_period = 300, num_limit = 10):
