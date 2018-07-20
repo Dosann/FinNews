@@ -571,7 +571,7 @@ function RenewWordFreqChart(json) {
       data: {
           labels: json['date'],
           datasets: [{
-              label: '# of Votes',
+              label: '# of Occurrence',
               data: json['freq'],
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
