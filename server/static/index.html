@@ -57,45 +57,7 @@
         
         </script>
 
-    <script>
-        var ctx = document.getElementById("myChart").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
+    
         
     </head>
     
@@ -128,14 +90,19 @@
         border-radius:10px; 
         }
     
+    .center {
+        display:inline-block;
+    }
     .left,
     .right {
         box-shadow:1px 1px 2px 2px rgba(135, 135, 135, 0.5);
-        width:45%;
-        height:50%;
+        width:600px;
+        height:510px;
         text-align:center;
         padding: 10px;
-        display: inline-block;
+        float:left;
+        margin:0 auto;
+        position:relative;
         /*border: 1px solid #f40;*/
     }
     .main{
@@ -149,6 +116,16 @@
         right: 0;
         bottom: 0;
     }
+    .bottom {
+        position:absolute;
+        bottom:0px;
+        left:0; 
+        top:0; 
+        right:0; 
+        bottom: 0; 
+        margin: auto;
+        top:auto;
+    }
     .divc { text-align:center}
     .big {font-size:20px}
     .small { font-size: 10px}
@@ -161,11 +138,13 @@
   }
 
   #canvas-container {
-    overflow-x: auto;
-    overflow-y: visible;
-    position: relative;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    box-shadow:1px 1px 2px 2px rgba(135, 135, 135, 0.5);
+    width:600px;
+    height:510px;
+    text-align:center;
+    padding: 10px;
+    display: inline-block;
+    margin:0 auto;
   }
   .canvas {
     display: block;
@@ -217,6 +196,10 @@
     100% { opacity: 0; }
   }
 
+  .button-highlight:hover {
+    background: #147c20;
+  }
+
     </style>
 
 
@@ -253,17 +236,27 @@
 
         </div>
     </nav>-->
-    <div class="main">
-        <div class="left" id="canvas-container">
+    <div class="center">
+        <div class="left" id="canvas-container" style="margin-right:40px">
             <canvas id="canvas" class="canvas" width="600" height="450"></canvas>
             <div id="html-canvas" class="canvas hide"></div>
-            <a onclick="InitHotwords('http://127.0.0.1:5000/api/recent_hotwords?days=1')" class="button button-highlight">24 hours</a>
-            <a onclick="InitHotwords('http://127.0.0.1:5000/api/recent_hotwords?days=7')" class="button button-highlight">7 days</a>
-            <a onclick="InitHotwords('http://127.0.0.1:5000/api/recent_hotwords?days=30')" class="button button-highlight">30 days</a>
-            <a onclick="InitHotwords('http://127.0.0.1:5000/api/recent_hotwords?days=365')" class="button button-highlight">365 days</a>
-        </div>
-        <div class="right">
-            <canvas id="myChart" width="400" height="400"></canvas>
+            <div class="bottom">
+                <a onclick="InitHotwords('http://127.0.0.1:5000/api/recent_hotwords?days=1')" class="button button-highlight">24 hours</a>
+                <a onclick="InitHotwords('http://127.0.0.1:5000/api/recent_hotwords?days=7')" class="button button-highlight">7 days</a>
+                <a onclick="InitHotwords('http://127.0.0.1:5000/api/recent_hotwords?days=30')" class="button button-highlight">30 days</a>
+                <a onclick="InitHotwords('http://127.0.0.1:5000/api/recent_hotwords?days=365')" class="button button-highlight">365 days</a>
+            </div>
+            </div>
+        <div class="left">
+            <canvas id="myChart"></canvas>
+            <div>
+                <a> Input the word</a>
+            </div>
+            <div class="bottom">
+                <a onclick="InitHotwords('http://127.0.0.1:5000/api/wordfreq?period=daily')" class="button button-highlight">24 hours</a>
+                <a onclick="InitHotwords('http://127.0.0.1:5000/api/wordfreq?period=weekly')" class="button button-highlight">7 days</a>
+                <a onclick="InitHotwords('http://127.0.0.1:5000/api/wordfreq?period=monthly')" class="button button-highlight">30 days</a>
+            </div>
         </div>
     </div>
     

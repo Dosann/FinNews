@@ -86,15 +86,24 @@ class service():
         num_articles_select = min(num_articles, num_limit)
         articles = self.conn.Query("select tbla.ID, tbla.published_at, tblb.article from articles tblb left join headers tbla " + \
         "on (tbla.ID = tblb.ID) where tbla.ID in " + \
-        "(select * from (select ID from headers where published_at > @dt order by rand() limit 100) as tbl02);")
+        "(select * from (select ID from headers where published_at > @dt order by rand() limit %d) as tbl02);"%num_articles_select)
         num_articles_selected = len(articles)
         print("Loaded %d articles from db."%num_articles_selected)
         # for article in articles:
         #     print(article[0], article[1])
         #print(sql)
         if num_articles_selected == 0:
-            articles = [["NO RECENT NEWS!", 50]]
+            articles = None
         else:
             articles = list(map(lambda x:list(x[:2])+[service.handleArticleBloomberg(x[2])], articles))
         return articles
         
+    def get_wordfreq(self, period = 'monthly', word = None):
+        tablemap = dict{
+            'monthly' : 'wordcount_monthly',
+            'weekly'  : 'wordcount_weekly',
+            'daily'   : 'wordcount_daily'
+        }
+        wordfreq = self.conn.Query("""select day,counts from %s"""%tablemap[period])
+        date = list(map(lambda x:pd.Timestamp.strftime('%Y-%m-%d', x[0]), wordfreq))
+

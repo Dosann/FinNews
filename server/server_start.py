@@ -38,8 +38,11 @@ def get_newest_article():
 def get_recent_hotwords():
     time_period = request.args.get('days', type = int)
     articles = svs.get_recent_articles(time_period = time_period)
-    articles_inone = '.'.join(list(map(lambda x:x[2], articles)))
-    hotwords = svs.get_keywords(articles_inone, num_keywords = 100)
+    if articles is not None:
+        articles_inone = '.'.join(list(map(lambda x:x[2], articles)))
+        hotwords = svs.get_keywords(articles_inone, num_keywords = 100)
+    else:
+        hotwords = [["NO RECENT NEWS!", 50]]
     return json.dumps(hotwords)
 
 if __name__ == "__main__":
