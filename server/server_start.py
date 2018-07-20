@@ -10,7 +10,7 @@ svs = services.service()
 
 @app.route("/")
 def hello():
-    return "杜鑫大帅逼!"
+    return app.send_static_file('static/index.html')
 
 @app.route('/api/hotwords', methods = ['GET'])
 def get_hotwords():
