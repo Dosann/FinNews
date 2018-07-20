@@ -5,6 +5,7 @@ import json
 import pymysql
 import gensim
 from math import ceil
+import pandas as pd
 from mysqlconnection import MysqlConnection
 
 class service():
@@ -78,6 +79,12 @@ class service():
         #print(top_rank)
         top_words  = list(map(lambda x:self.dct[x[0]], top_pairs))
         top_scores = list(map(lambda x:ceil(x[1] * 300), top_pairs))
+        def ScoreNormalize(scores, limit = 30):
+            largest = max(scores)
+            factor = 100 / largest
+            scores = list(map(lambda x:x*factor, scores))
+            return scores
+        top_scores = ScoreNormalize(top_scores, limit = 30)
         return list(zip(top_words, top_scores))
     
     def get_recent_articles(self, time_period = 30, num_limit = 100):
@@ -99,11 +106,25 @@ class service():
         return articles
         
     def get_wordfreq(self, period = 'monthly', word = None):
-        tablemap = dict{
-            'monthly' : 'wordcount_monthly',
-            'weekly'  : 'wordcount_weekly',
-            'daily'   : 'wordcount_daily'
-        }
+        tablemap = dict({ \
+            'monthly' : 'wordcount_monthly', \
+            'weekly'  : 'wordcount_weekly', \
+            'daily'   : 'wordcount_daily' \
+        })
+
+        def GetMember(counts, member):
+            dct = json.loads(counts)
+            if member in dct:
+                return dct[member]
+            else:
+                return 0
+        print('mode:',period)
         wordfreq = self.conn.Query("""select day,counts from %s"""%tablemap[period])
-        date = list(map(lambda x:pd.Timestamp.strftime('%Y-%m-%d', x[0]), wordfreq))
+        date = list(map(lambda x:pd.Timestamp.strftime(x[0], '%Y-%m-%d'), wordfreq))
+        freq = list(map(lambda x:GetMember(x, word), list(map(lambda y:y[1], wordfreq))))
+        if sum(freq) == 0:
+            NOTFOUND = '1'
+        else:
+            NOTFOUND = '0'
+        return json.dumps({'date':date, 'freq':freq, 'NOTFOUND':NOTFOUND})
 

@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/animate.min.css">
         <link rel="stylesheet" href="css/buttons.css">
+        <link rel="stylesheet" href="selectize.css"
         <!--<link rel="stylesheet" type="text/css" media="all" href="assets/css/style-projects.css">
         
 
@@ -36,6 +37,8 @@
         <script defer src="js/wow.min.js"></script>
         <script src="js/shine.min.js"></script>
         <script src="js/Chart.min.js"></script>
+        <script src="js/selectize.min.js"></script>
+        <script src="js/jquery.adaptive-backgrounds.js"></script>
         <!-- <script defer>
           new WOW().init();
         </script> -->
@@ -69,11 +72,25 @@
     /* css注释：为了观察效果设置宽度 边框 高度等样式 */ 
     .title{
         padding-top:100px;
-        padding-bottom:100px;
+        padding-bottom:90px;
         width:100%;
         height:120px;
         font-family:Georgia, 'Times New Roman', Times, serif;
         font-size: 120px;
+        color:slategrey;
+        text-align: center;
+        
+    }
+    .introduction{
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        margin:auto;
+        width:800px;
+        height:220px;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        font-size: 20px;
         color:slategrey;
         text-align: center;
         
@@ -204,41 +221,40 @@
 
 
     <body>
+        <img src="image.jpg" data-adaptive-background>
         <div id="title" class="title">FINNEWS</div>
 
-    <!-- Header -->
-        
-    <!--<nav id="navbar-section" class="navbar navbar-default navbar-static-top navbar-sticky" role="navigation">
-        <div class="container">
-        
-        
-            <div id="navbar-spy" class="collapse navbar-collapse navbar-responsive-collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a href="about.html">About</a>
-                    </li>
-                    <li class="active">
-                        <a href="blog.html">Blog</a>
-                    </li>
-                    <li>
-                        <a href="team.html">Team</a>
-                    </li>
-                    <li>
-                        <a href="contact.html"><span>Contact</span></a>
-                    </li>
-                </ul>         
-            </div>
-        
-
-
+        <div id="introduction" class="introduction">
+            <p >
+                Finnews is a news visualization project. 
+            </p>
+            <p style="text-align:right">
+                written by duxin for dbclass.
+            </p>
+            <p style="text-align:justify;">
+                You can see the hottest words in the left figure, or the word frequency 
+                fluctuation over the past days/weeks/months.
+            </p>
+            <p style="text-align:left;font-weight:bold">
+                1. Check the hottest words (left)
+            </p>
+            <p style="text-align:justify">
+                The words are obtained through analyzing articles from www.bloomberg.com.
+            </p>
+            <p style="text-align:left;font-weight:bold">
+                2. Check the word-frequency fluctuation (left)
+            </p>
+            <p style="text-align:justify">
+                Input a word into the box and click on "Search". You can switch display
+                 mode between "daily", "weekly" and "monthly"
+            </p>
         </div>
-    </nav>-->
+
+    
+        
     <div class="center">
         <div class="left" id="canvas-container" style="margin-right:40px">
-            <canvas id="canvas" class="canvas" width="600" height="450"></canvas>
+            <canvas id="canvas" class="canvas" width="580" height="420"></canvas>
             <div id="html-canvas" class="canvas hide"></div>
             <div class="bottom">
                 <a onclick="InitHotwords('http://127.0.0.1:5000/api/recent_hotwords?days=1')" class="button button-highlight">24 hours</a>
@@ -248,225 +264,19 @@
             </div>
             </div>
         <div class="left">
-            <canvas id="myChart"></canvas>
-            <div>
-                <a> Input the word</a>
+            <input id="wordfreq_input" value="bitcoin">
+            <button id="wordfreq_button" onclick="InitWordfreq('weekly')">Search</button>
+            <div id="wordfreq_container">
+                <canvas id="wordfreq_canvas" width="580" height="420"></canvas>
             </div>
             <div class="bottom">
-                <a onclick="InitHotwords('http://127.0.0.1:5000/api/wordfreq?period=daily')" class="button button-highlight">24 hours</a>
-                <a onclick="InitHotwords('http://127.0.0.1:5000/api/wordfreq?period=weekly')" class="button button-highlight">7 days</a>
-                <a onclick="InitHotwords('http://127.0.0.1:5000/api/wordfreq?period=monthly')" class="button button-highlight">30 days</a>
+                <a onclick="InitWordfreq('daily')" class="button button-highlight">daily</a>
+                <a onclick="InitWordfreq('weekly')" class="button button-highlight">weekly</a>
+                <a onclick="InitWordfreq('monthly')" class="button button-highlight">monthly</a>
             </div>
         </div>
     </div>
     
-          
-    <div class="row container-kamn">
-        <img src="assets/img/slider/slide5.jpg" class="blog-post" alt="Feature-img" align="right" width="100%"> 
-    </div>
-
-    <!-- End Header -->
-
-
-    <!-- Main Container -->
-    <div id="banners"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9"> 
-                    <div class="blog-post">
-                        <h1 class="blog-title">
-                            <i class="fa fa-file-text"></i>
-                            Alice in Wonderland, part dos
-                        </h1>
-                        <br>
-                        <img src="assets/img/slider/blog3.jpg" alt="Feature-img" align="right" width="100%" class="blog-image">
-                        <br>
-                        <p>
-                            'You ought to be ashamed of yourself for asking such a simple question,' added the Gryphon; and then they both sat silent and looked at poor Alice, who felt ready to sink into the earth. At last the Gryphon said to the Mock Turtle, 'Drive on, old fellow! Don't be all day about it!' and he went on in these words:
-                            'Yes, we went to school in the sea, though you mayn't believe it—'
-                            'I never said I didn't!' interrupted Alice.
-                            'You did,' said the Mock Turtle.
-                        </p>
-                        <div>
-                            <span class="badge">Posted 2012-08-02 20:47:04</span>
-                            <div class="pull-right">
-                                <span class="label label-default">alice</span> 
-                                <span class="label label-primary">story</span> 
-                                <span class="label label-success">blog</span> 
-                                <span class="label label-info">personal</span> 
-                                <span class="label label-warning">Warning</span>
-                                <span class="label label-danger">Danger</span>
-                            </div>         
-                        </div>
-                    </div>
-                    <hr>
-
-                    <div class="blog-post">
-                        <h1 class="blog-title">
-                            <i class="fa fa-file"></i>
-                            Revolution has begun!
-                        </h1>
-                        <img src="assets/img/slider/blog2.jpg" alt="Feature-img" align="right" width="100%" class="blog-image"> 
-                        <br>
-                        <p>
-                            'I am bound to Tahiti for more men.'
-                            'Very good. Let me board you a moment—I come in peace.' With that he leaped from the canoe, swam to the boat; and climbing the gunwale, stood face to face with the captain.
-                            'Cross your arms, sir; throw back your head. Now, repeat after me. As soon as Steelkilt leaves me, I swear to beach this boat on yonder island, and remain there six days. If I do not, may lightning strike me!'A pretty scholar,' laughed the Lakeman. 'Adios, Senor!' and leaping into the sea, he swam back to his comrades.
-                        </p>
-                        <div>
-                            <span class="badge">Posted 2012-08-02 20:47:04</span>
-                            <div class="pull-right"><span class="label label-default">alice</span>
-                                <span class="label label-primary">story</span> 
-                                <span class="label label-success">blog</span> 
-                                <span class="label label-info">personal</span> 
-                                <span class="label label-warning">Warning</span>
-                                <span class="label label-danger">Danger</span>
-                            </div>
-                        </div>  
-                    </div>   
-                    <hr>
-
-                    <div class="blog-post">
-                        <h1 class="blog-title">
-                            <i class="fa fa-cloud"></i>
-                            Alice in Wonderland, part dos
-                        </h1>
-                        <img src="assets/img/slider/blog1.jpg" alt="Feature-img" align="right" width="100%" class="blog-image">
-                        <p>
-                            'You ought to be ashamed of yourself for asking such a simple question,' added the Gryphon; and then they both sat silent and looked at poor Alice, who felt ready to sink into the earth. At last the Gryphon said to the Mock Turtle, 'Drive on, old fellow! Don't be all day about it!' and he went on in these words:
-                            'Yes, we went to school in the sea, though you mayn't believe it—'
-                            'I never said I didn't!' interrupted Alice.
-                            'You did,' said the Mock Turtle.
-                        </p>
-                        <div>
-                            <span class="badge">Posted 2012-08-02 20:47:04</span>
-                            <div class="pull-right">
-                                <span class="label label-default">alice</span> 
-                                <span class="label label-primary">story</span> 
-                                <span class="label label-success">blog</span> 
-                                <span class="label label-info">personal</span> 
-                                <span class="label label-warning">Warning</span>
-                                <span class="label label-danger">Danger</span>
-                            </div>         
-                        </div>
-                    </div>
-                    <hr>
-
-                    <ul class="pagination">
-                        <li class="disabled"><a href="#">&laquo;</a></li>
-                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">2 <span class="sr-only"></span></a></li>
-                        <li><a href="#">3 <span class="sr-only"></span></a></li>
-                        <li><a href="#">4 <span class="sr-only"></span></a></li>
-                        <li><a href="#">5 <span class="sr-only"></span></a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><strong>Sign in </strong></h3>
-                        </div>
-                        <div class="panel-body">
-                            <form role="form">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Username or Email</label>
-                                    <input type="email" class="form-control" style="border-radius:0px" id="exampleInputEmail1" placeholder="Enter email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password <a href="/sessions/forgot_password">(forgot password)</a></label>
-                                    <input type="password" class="form-control" style="border-radius:0px" id="exampleInputPassword1" placeholder="Password">
-                                </div>
-                                <button type="submit" class="btn btn-sm btn-default">Sign in</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                        </ol>
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="http://placehold.it/292/16a085/FFF&text=CSS3" alt="" class="img-responsive" />
-                            </div>
-                            <div class="item">
-                                <img src="http://placehold.it/292/d35400/FFF&text=HTML5" alt="" class="img-responsive" />
-                            </div>
-                            <div class="item">
-                                <img src="http://placehold.it/292/2980b9/FFF&text=RESPONSIVE" alt="" class="img-responsive" />
-                            </div>
-                            <div class="item">
-                                <img src="http://placehold.it/292/8e44ad/FFF&text=BOOTSTRAP3" alt="" class="img-responsive" />
-                            </div>
-                        </div>
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-       
-        <!--End Main Container -->
-
-
-        <!-- Footer -->
-    <footer> 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h3><i class="fa fa-map-marker"></i> Contact:</h3>
-                    <p class="footer-contact">
-                        Via Ludovisi 39-45, Rome, 54267, Italy<br>
-                        Phone: 1.800.245.356 Fax: 1.800.245.357<br>
-                        Email: hello@LawOffice.org<br>
-                    </p>
-                </div>
-                <div class="col-md-4">
-                    <h3><i class="fa fa-external-link"></i> Links</h3>
-                    <p> <a href="#"> About ( Who we are )</a></p>
-                    <p> <a href="#"> Services ( What we do )</a></p>
-                    <p> <a href="#"> Contact ( Feel free to contact )</a></p>
-                    <p> <a href="#"> Blog ( Write to us )</a></p>
-                    <p> <a href="#"> Team ( Meet the Team )</a></p> 
-                </div>
-              <div class="col-md-4">
-                <h3><i class="fa fa-heart"></i> Socialize</h3>
-                <div id="social-icons">
-                    <a href="#" class="btn-group google-plus">
-                        <i class="fa fa-google-plus"></i>
-                    </a>
-                      <a href="#" class="btn-group linkedin">
-                        <i class="fa fa-linkedin-square"></i>
-                    </a>
-                      <a href="#" class="btn-group twitter">
-                        <i class="fa fa-twitter"></i>
-                    </a>
-                      <a href="#" class="btn-group facebook">
-                        <i class="fa fa-facebook"></i>
-                    </a>
-                </div>
-              </div>    
-        </div>
-      </div>
-    </footer>
-
-    
-    <div class="copyright text center">
-        <p>&copy; Copyright 2014, <a href="#">Your Website Link</a>. Theme by <a href="https://themewagon.com/" target="_blank">ThemeWagon</a></p>
-    </div>
-
-        
 
   </body>
 </html>

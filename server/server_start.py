@@ -45,5 +45,11 @@ def get_recent_hotwords():
         hotwords = [["NO RECENT NEWS!", 50]]
     return json.dumps(hotwords)
 
+@app.route('/api/wordfreq', methods = ['GET'])
+def get_wordfreq():
+    period = request.args.get('period', type = str)
+    word   = request.args.get('word', type = str)
+    return svs.get_wordfreq(period, word)
+
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 5000)

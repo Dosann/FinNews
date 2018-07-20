@@ -546,41 +546,75 @@ window.addEventListener('mousemove', function(event) {
 }, false);
 
 window.onload = InitHotwords('http://127.0.0.1:5000/api/recent_hotwords?days=300');
+var canvas_wordfreq = document.getElementById("wordfreq_canvas").getContext('2d');
+InitWordfreq('weekly')
 
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [1, 2, 3, 4, 5, 6],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
+var option = []
+$(function() {
+	$('wordfreq_input').selectize(option);
 });
+
+function clearCanvas(){
+  $('#wordfreq_canvas').remove();
+  $('#wordfreq_container').append('<canvas id="wordfreq_canvas" width="600" height="450"></canvas>');
+  canvas_wordfreq=document.getElementById("wordfreq_canvas").getContext("2d");
+}
+
+function RenewWordFreqChart(json) {
+  if (json['NOTFOUND'] === '1') {
+    alert('No such word found!')
+  }
+  clearCanvas()
+  var ctx = canvas_wordfreq
+  var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: json['date'],
+          datasets: [{
+              label: '# of Votes',
+              data: json['freq'],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+  });
+}
+
+function InitWordfreq(day) {
+  var word = document.getElementById("wordfreq_input").value;
+  if (word === '') {
+    word = 'bitcoin';
+    document.getElementById('wordfreq_input').value = 'bitcoin';
+  }
+  var url = 'http://127.0.0.1:5000/api/wordfreq?word='+word+'&period='+day;
+  console.log(url);
+  var response = $.getJSON(url, RenewWordFreqChart);
+}
+
+// $(document).ready(function(){
+//   $.adaptiveBackground.run();
+// });
