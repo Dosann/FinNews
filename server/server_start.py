@@ -1,16 +1,16 @@
 # -*- coding:utf-8 -*-
 
 from flask import Flask
-from flask import request, send_from_directory
+from flask import request, render_template
 import json
 import services
-app = Flask(__name__)
+app = Flask(__name__, template_folder='static')
 
 svs = services.service()
 
 @app.route("/")
 def hello():
-    return send_from_directory('static', 'index.html')
+    return render_template('index.html')
 
 @app.route('/api/hotwords', methods = ['GET'])
 def get_hotwords():

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Office</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300">
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
+        <link href="http://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/animate.min.css">
+        <link rel="stylesheet" href="css/buttons.css">
+        <link rel="stylesheet" href="selectize.css"
+        <!--<link rel="stylesheet" type="text/css" media="all" href="assets/css/style-projects.css">
+        
+
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+        <!-- JavaScripts -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/wordcloud2.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script defer src="js/index.js"></script>
+        <script defer src="js/wow.min.js"></script>
+        <script src="js/shine.min.js"></script>
+        <script src="js/Chart.min.js"></script>
+        <script src="js/selectize.min.js"></script>
+        <script src="js/jquery.adaptive-backgrounds.js"></script>
+        <!-- <script defer>
+          new WOW().init();
+        </script> -->
+
+        <script defer type="text/javascript">
+            if (window.location.hostname === 'timdream.org') {
+              var _gaq = _gaq || [];
+              _gaq.push(['_setAccount', 'UA-4623408-2']);
+              _gaq.push(['_trackPageview']);
+            }
+        
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+            
+            
+        
+        </script>
+
+    
+        
+    </head>
+    
+    <style> 
+    body{ 
+        text-align:center;
+        background-color:rgba(255, 254, 169, 0.753)
+        } 
+    /* css注释：为了观察效果设置宽度 边框 高度等样式 */ 
+    .title{
+        padding-top:100px;
+        padding-bottom:90px;
+        width:100%;
+        height:120px;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        font-size: 120px;
+        color:rgb(144, 138, 112);
+        text-align: center;
+        
+    }
+    .introduction{
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        margin:auto;
+        width:800px;
+        height:220px;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        font-size: 20px;
+        color:slategrey;
+        text-align: center;
+        
+    }
+    .image1{ 
+            margin-top: 50px; 
+            width:200px; 
+            border-radius:200px; 
+        }
+    
+    .image2{
+        margin-top: 50px; 
+        width:400px; 
+        border-radius:10px; 
+        }
+    
+    .center {
+        display:inline-block;
+    }
+    .left,
+    .right {
+        box-shadow:1px 1px 2px 2px rgba(135, 135, 135, 0.5);
+        width:600px;
+        height:510px;
+        text-align:center;
+        padding: 10px;
+        float:left;
+        margin:0 auto;
+        position:relative;
+        /*border: 1px solid #f40;*/
+    }
+    .main{
+        text-align: center; /*让div内部文字居中*/
+        background-color: rgba(255,255,255,0);
+        border-radius: 6px;
+        width:100%;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .bottom {
+        position:absolute;
+        bottom:0px;
+        left:0; 
+        top:0; 
+        right:0; 
+        bottom: 0; 
+        margin: auto;
+        top:auto;
+    }
+    .divc { text-align:center}
+    .big {font-size:20px}
+    .small { font-size: 10px}
+    p{margin:0}
+
+/*wordcloud.js*/
+
+  *[hidden] {
+    display: none;
+  }
+
+  #canvas-container {
+    box-shadow:1px 1px 2px 2px rgba(135, 135, 135, 0.5);
+    width:600px;
+    height:510px;
+    text-align:center;
+    padding: 10px;
+    display: inline-block;
+    margin:0 auto;
+  }
+  .canvas {
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .canvas.hide {
+    display: none;
+  }
+
+  #html-canvas > span {
+    transition: text-shadow 1s ease, opacity 1s ease;
+    -webkit-transition: text-shadow 1s ease, opacity 1s ease;
+    -ms-transition: text-shadow 1s ease, opacity 1s ease;
+  }
+
+  #html-canvas > span:hover {
+    text-shadow: 0 0 10px, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
+    opacity: 0.5;
+  }
+
+  #box {
+    pointer-events: none;
+    position: absolute;
+    box-shadow: 0 0 200px 200px rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    cursor: pointer;
+  }
+
+  textarea {
+    height: 20em;
+  }
+  #config-option {
+    font-family: monospace;
+  }
+  select { width: 100%; }
+
+  #loading {
+    animation: blink 2s infinite;
+    -webkit-animation: blink 2s infinite;
+  }
+  @-webkit-keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .button-highlight:hover {
+    background: #147c20;
+  }
+
+    </style>
+
+
+    <body>
+        <img src="image.jpg" data-adaptive-background>
+        <div id="title" class="title">FINNEWS</div>
+
+        <div id="introduction" class="introduction">
+            <p >
+                Finnews is a news visualization project. 
+            </p>
+            <p style="text-align:right">
+                written by duxin for dbclass.
+            </p>
+            <p style="text-align:justify;">
+                You can see the hottest words in the left figure, or the word frequency 
+                fluctuation over the past days/weeks/months.
+            </p>
+            <p style="text-align:left;font-weight:bold">
+                1. Check the hottest words (left)
+            </p>
+            <p style="text-align:justify">
+                The words are obtained through analyzing articles from www.bloomberg.com.
+            </p>
+            <p style="text-align:left;font-weight:bold">
+                2. Check the word-frequency fluctuation (left)
+            </p>
+            <p style="text-align:justify">
+                Input a word into the box and click on "Search". You can switch display
+                 mode between "daily", "weekly" and "monthly"
+            </p>
+        </div>
+
+    
+        
+    <div class="center">
+        <div class="left" id="canvas-container" style="margin-right:40px">
+            <canvas id="canvas" class="canvas" width="580" height="420"></canvas>
+            <div id="html-canvas" class="canvas hide"></div>
+            <div class="bottom">
+                <a onclick="InitHotwords('http://153.125.128.179/api/recent_hotwords?days=1')" class="button button-highlight">24 hours</a>
+                <a onclick="InitHotwords('http://153.125.128.179/api/recent_hotwords?days=7')" class="button button-highlight">7 days</a>
+                <a onclick="InitHotwords('http://153.125.128.179/api/recent_hotwords?days=30')" class="button button-highlight">30 days</a>
+                <a onclick="InitHotwords('http://153.125.128.179/api/recent_hotwords?days=365')" class="button button-highlight">365 days</a>
+            </div>
+            </div>
+        <div class="left">
+            <input id="wordfreq_input" value="bitcoin">
+            <button id="wordfreq_button" onclick="InitWordfreq('weekly')">Search</button>
+            <div id="wordfreq_container">
+                <canvas id="wordfreq_canvas" width="580" height="420"></canvas>
+            </div>
+            <div class="bottom">
+                <a onclick="InitWordfreq('daily')" class="button button-highlight">daily</a>
+                <a onclick="InitWordfreq('weekly')" class="button button-highlight">weekly</a>
+                <a onclick="InitWordfreq('monthly')" class="button button-highlight">monthly</a>
+            </div>
+            <div style="height:100px">
+
+            </div>
+        </div>
+    </div>
+    
+
+  </body>
+</html>
