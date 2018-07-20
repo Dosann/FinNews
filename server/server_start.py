@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
 from flask import Flask
-from flask import request
+from flask import request, send_from_directory
 import json
 import services
 app = Flask(__name__)
@@ -10,7 +10,7 @@ svs = services.service()
 
 @app.route("/")
 def hello():
-    return app.send_static_file('static/index.html')
+    return send_from_directory('static', 'index.html')
 
 @app.route('/api/hotwords', methods = ['GET'])
 def get_hotwords():
