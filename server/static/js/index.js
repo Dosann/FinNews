@@ -545,7 +545,7 @@ window.addEventListener('mousemove', function(event) {
   shine.draw();
 }, false);
 
-window.onload = InitHotwords('http://153.125.128.179/api/recent_hotwords?days=300');
+InitHotwords('http://153.125.128.179/api/recent_hotwords?days=300');
 var canvas_wordfreq = document.getElementById("wordfreq_canvas").getContext('2d');
 InitWordfreq('weekly')
 
