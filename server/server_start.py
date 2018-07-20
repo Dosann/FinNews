@@ -4,6 +4,8 @@ from flask import Flask
 from flask import request, render_template, send_from_directory
 import json
 import services
+from gevent import monkey
+monkey.patch_all()
 app = Flask(__name__, template_folder='static')
 
 svs = services.service()
