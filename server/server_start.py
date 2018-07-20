@@ -10,7 +10,7 @@ svs = services.service()
 
 @app.route("/")
 def hello():
-    return send_from_directory('static', 'index.html')
+    return render_template('index.html')
 
 @app.route('/api/hotwords', methods = ['GET'])
 def get_hotwords():
