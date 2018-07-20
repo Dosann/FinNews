@@ -518,7 +518,7 @@ jQuery(function($) {
 
 
 function InitHotwords2(url) {
-  var response = $.getJSON('http://127.0.0.1:5000/newest_article')
+  var response = $.getJSON('http://153.125.128.179/newest_article')
 }
 
 function InitHotwords(url) {
@@ -545,7 +545,7 @@ window.addEventListener('mousemove', function(event) {
   shine.draw();
 }, false);
 
-window.onload = InitHotwords('http://127.0.0.1:5000/api/recent_hotwords?days=300');
+window.onload = InitHotwords('http://153.125.128.179/api/recent_hotwords?days=300');
 var canvas_wordfreq = document.getElementById("wordfreq_canvas").getContext('2d');
 InitWordfreq('weekly')
 
@@ -610,7 +610,7 @@ function InitWordfreq(day) {
     word = 'bitcoin';
     document.getElementById('wordfreq_input').value = 'bitcoin';
   }
-  var url = 'http://127.0.0.1:5000/api/wordfreq?word='+word+'&period='+day;
+  var url = 'http://153.125.128.179/api/wordfreq?word='+word+'&period='+day;
   console.log(url);
   var response = $.getJSON(url, RenewWordFreqChart);
 }
